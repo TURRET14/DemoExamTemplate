@@ -27,7 +27,6 @@ namespace DemoExam
         public ProductPage()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -58,15 +57,31 @@ namespace DemoExam
 
         private void LoadMainData()
         {
-            MainDataList = DBEntities.GetInstance().Product.ToList();
+            try
+            {
+                MainDataList = DBEntities.GetInstance().Product.ToList();
+            }
+            catch
+            {
+                MessageHelper.ShowErrorMessage("Ошибка при получении данных из базы данных!");
+                return;
+            }
             
-            DataGrid_Main.ItemsSource = null;
-            DataGrid_Main.ItemsSource = MainDataList;
+            ListBox_Main.ItemsSource = null;
+            ListBox_Main.ItemsSource = MainDataList;
         }
 
         private void LoadFilterData()
         {
-            FilterDataList = DBEntities.GetInstance().Type.ToList();
+            try
+            {
+                FilterDataList = DBEntities.GetInstance().Type.ToList();
+            }
+            catch
+            {
+                MessageHelper.ShowErrorMessage("Ошибка при получении данных из базы данных!");
+                return;
+            }
             FilterDataList.Insert(0, FilterAllObject);
             
             ComboBox_Filter.ItemsSource = null;
@@ -75,19 +90,27 @@ namespace DemoExam
 
         private void Button_Add_Click(object sender, RoutedEventArgs e)
         {
-            // NavigationService.Navigate();
+            NavigationService.Navigate(new EditProductPage());
         }
 
         private void Button_Delete_Click(object sender, RoutedEventArgs e)
         {
-            Product selected = DataGrid_Main.SelectedItem as Product;
+            Product selected = ListBox_Main.SelectedItem as Product;
             if (!(selected is null))
             {
                 if (MessageHelper.ShowConfirmationMessage("Вы уверены, что хотите удалить товар?"))
                 {
-                    DBEntities.GetInstance().Product.Remove(selected);
-                    DBEntities.GetInstance().SaveChanges();
-                    
+                    try
+                    {
+                        DBEntities.GetInstance().Product.Remove(selected);
+                        DBEntities.GetInstance().SaveChanges();
+                    }
+                    catch
+                    {
+                        MessageHelper.ShowErrorMessage("Ошибка при удалении данных из базы данных!");
+                        return;
+                    }
+
                     LoadMainData();
                 }
             }
@@ -110,9 +133,18 @@ namespace DemoExam
 
         private void SearchAndFilter()
         {
+            List<Product> data;
+            try
+            {
+                data = DBEntities.GetInstance().Product.ToList();
+            }
+            catch
+            {
+                MessageHelper.ShowErrorMessage("Ошибка при получении данных из базы данных!");
+                return;
+            }
+
             // Сортировка
-            List<Product> data = DBEntities.GetInstance().Product.ToList();
-            
             // По убыванию
             if (ComboBox_Sort.SelectedIndex == 0)
             {
@@ -137,8 +169,8 @@ namespace DemoExam
             }
 
             MainDataList = data;
-            DataGrid_Main.ItemsSource = null;
-            DataGrid_Main.ItemsSource = MainDataList;
+            ListBox_Main.ItemsSource = null;
+            ListBox_Main.ItemsSource = MainDataList;
         }
 
         private void Button_Filters_Clear_Click(object sender, RoutedEventArgs e)
@@ -153,6 +185,22 @@ namespace DemoExam
         private void Button_Orders_Click(object sender, RoutedEventArgs e)
         {
             // NavigationService.Navigate();
+        }
+
+        private void ListBox_Main_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Product selected = ListBox_Main.SelectedItem as Product;
+
+            if (selected != null)
+            {
+                if (UserData.CurrentUser != null && UserData.CurrentUser.Role != null)
+                {
+                    if (UserData.CurrentUser.Role.Name == "Администратор")
+                    {
+                        NavigationService.Navigate(new EditProductPage(selected));
+                    }
+                }
+            }
         }
     }
 }

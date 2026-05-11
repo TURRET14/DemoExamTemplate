@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EditProductPage.xaml.cs">
+      <DependentUpon>EditProductPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductExt.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -70,6 +74,10 @@
     <Compile Include="UserData.cs" />
     <Compile Include="ValidationService.cs" />
     <Page Include="Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditProductPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,6 +132,14 @@
   <ItemGroup>
     <Resource Include="Восьмерка.ico" />
     <Resource Include="Восьмерка.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="Images\Picture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

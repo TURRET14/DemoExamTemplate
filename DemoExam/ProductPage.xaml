@@ -68,13 +68,63 @@
                 </Grid>
             </GroupBox>
 
-            <DataGrid Name="DataGrid_Main" Grid.Row="4" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding MainDataList}" d:ItemsSource="{d:SampleData ItemCount=5}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+            <ListBox Name="ListBox_Main" Grid.Row="4" ItemsSource="{Binding MainDataList}" MouseDoubleClick="ListBox_Main_MouseDoubleClick" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsBigPrice}" Value="True">
+                                            <Setter Property="Grid.Background" Value="DarkRed"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Width="50" Source="{Binding ImagePathGetSet}"></Image>
+
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{} Название: {0}">
+                                            <Binding Path="Name"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Grid.Row="1">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{} Цена: {0}">
+                                            <Binding Path="Price"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock Grid.Row="2">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{} Тип: {0}">
+                                            <Binding Path="Type.Name"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </ScrollViewer>
 </Page>
