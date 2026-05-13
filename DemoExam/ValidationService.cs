@@ -8,6 +8,7 @@ namespace DemoExam
 {
     public static class ValidationService
     {
+        // Класс для валидации данных. Содержит статические методы для проверки различных условий и отображения сообщений об ошибках.
         public static bool IsStringNotEmpty(string value, string title)
         {
             if (String.IsNullOrEmpty(value))

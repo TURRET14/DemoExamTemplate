@@ -5,7 +5,9 @@ namespace DemoExam
 {
     public partial class Product
     {
+        
         public string ImagePathGetSet {
+            // Свойство для получения полного пути к изображению продукта. Если путь к изображению не указан, возвращает путь к изображению по умолчанию.
             get
             {
                 if (!String.IsNullOrEmpty(ImagePath))
@@ -17,6 +19,7 @@ namespace DemoExam
                     return "/Picture.png";
                 }
             }
+            // Свойство для установки изображения продукта.
             set
             {
                 string filename = Path.GetFileName(value);
@@ -29,6 +32,7 @@ namespace DemoExam
                 ImagePath = filename;
             }
         }
+
         public bool IsBigPrice
         {
             get

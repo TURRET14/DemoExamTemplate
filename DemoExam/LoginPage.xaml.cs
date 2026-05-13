@@ -23,8 +23,13 @@ namespace DemoExam
         public LoginPage()
         {
             InitializeComponent();
+            if (NavigationService != null)
+            {
+                while (NavigationService.RemoveBackEntry() != null) { }
+            }
         }
 
+        // Обработчик события нажатия на кнопку "Войти".
         private void Button_Login_Click(object sender, RoutedEventArgs e)
         {
             string login = TextBox_Login.Text;

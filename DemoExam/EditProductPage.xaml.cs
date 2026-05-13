@@ -25,12 +25,16 @@ namespace DemoExam
         private bool IsNewObject { get; set; }
 
         public List<Type> ComboBoxTypes { get; set; }
+        
+        // Конструктор добавления нового объекта.
         public EditProductPage()
         {
             InitializeComponent();
             SelectedObject = new Product();
             IsNewObject = true;
         }
+
+        // Конструктор для редактирования существующего объекта.
         public EditProductPage(Product selected)
         {
             InitializeComponent();
@@ -38,6 +42,7 @@ namespace DemoExam
             IsNewObject = false;
         }
 
+        // Метод для загрузки данных при загрузке страницы и отображения их в интерфейсе.
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -54,6 +59,7 @@ namespace DemoExam
             DataContext = this;
         }
 
+        // Метод для обработки нажатия кнопки изменения изображения, который открывает диалоговое окно для выбора нового изображения и обновляет отображаемое изображение.
         private void Button_ChangeImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog Ofd = new OpenFileDialog();
@@ -66,12 +72,14 @@ namespace DemoExam
             }
         }
 
+        // Метод для обработки нажатия кнопки очистки изображения, который удаляет путь к изображению продукта и обновляет отображаемое изображение.
         private void Button_ClearImage_Click(object sender, RoutedEventArgs e)
         {
             SelectedObject.ImagePath = null;
             Image_Main.GetBindingExpression(Image.SourceProperty).UpdateTarget();
         }
 
+        // Метод для обработки нажатия кнопки сохранения, который проверяет правильность введенных данных, сохраняет изменения в базе данных и возвращается на предыдущую страницу.
         private void Button_Save_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateInput())
@@ -101,6 +109,7 @@ namespace DemoExam
             }
         }
 
+        // Метод для проверки правильности введенных данных.
         private bool ValidateInput()
         {
             if (!ValidationService.IsStringNotEmpty(SelectedObject.Name, "Название"))

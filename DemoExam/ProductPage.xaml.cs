@@ -29,10 +29,12 @@ namespace DemoExam
             InitializeComponent();
         }
 
+        // Метод для загрузки данных при загрузке страницы и проверки прав доступа текущего пользователя.
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             LoadFilterData();
             LoadMainData();
+            SearchAndFilter();
 
             if (UserData.CurrentUser != null && UserData.CurrentUser.Role != null)
             {
@@ -55,6 +57,7 @@ namespace DemoExam
             }
         }
 
+        // Методы для загрузки данных из базы данных и отображения их в интерфейсе.
         private void LoadMainData()
         {
             try
@@ -88,11 +91,13 @@ namespace DemoExam
             ComboBox_Filter.ItemsSource = FilterDataList;
         }
 
+        // Метод перехода на страницу редактирования для добавления нового объекта.
         private void Button_Add_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new EditProductPage());
         }
 
+        // Метод для удаления выбранного объекта из базы данных с подтверждением действия.
         private void Button_Delete_Click(object sender, RoutedEventArgs e)
         {
             Product selected = ListBox_Main.SelectedItem as Product;
@@ -115,7 +120,7 @@ namespace DemoExam
                 }
             }
         }
-
+        // Методы для сортировки, фильтрации и поиска данных в интерфейсе.
         private void ComboBox_Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SearchAndFilter();
@@ -131,6 +136,7 @@ namespace DemoExam
             SearchAndFilter();
         }
 
+        // Метод для применения сортировки, фильтрации и поиска к данным и обновления отображения в интерфейсе.
         private void SearchAndFilter()
         {
             List<Product> data;
@@ -151,7 +157,7 @@ namespace DemoExam
                 data = data.OrderByDescending(entry => entry.Price).ToList();
             }
             // По возрастанию
-            else if (ComboBox_Filter.SelectedIndex == 1)
+            else if (ComboBox_Sort.SelectedIndex == 1)
             {
                 data = data.OrderBy(entry => entry.Price).ToList();
             }
@@ -163,7 +169,7 @@ namespace DemoExam
             }
 
             // Поиск
-            if (!string.IsNullOrEmpty(TextBox_Search.Text))
+            if (!String.IsNullOrEmpty(TextBox_Search.Text))
             {
                 data = data.Where(entry => entry.Name.Contains(TextBox_Search.Text)).ToList();
             }
@@ -173,6 +179,7 @@ namespace DemoExam
             ListBox_Main.ItemsSource = MainDataList;
         }
 
+        // Метод для сброса сортировки, фильтрации и поиска и обновления отображения данных в интерфейсе.
         private void Button_Filters_Clear_Click(object sender, RoutedEventArgs e)
         {
             ComboBox_Sort.SelectedItem = null;
@@ -187,6 +194,7 @@ namespace DemoExam
             // NavigationService.Navigate();
         }
 
+        // Метод для перехода на страницу редактирования для изменения существующего объекта при двойном клике на элементе списка.
         private void ListBox_Main_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Product selected = ListBox_Main.SelectedItem as Product;
