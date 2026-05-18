@@ -8,7 +8,7 @@ namespace DemoExam
     {
         
         public string ImagePathGetSet {
-            // Свойство для получения полного пути к изображению продукта. Если путь к изображению не указан, возвращает путь к изображению по умолчанию.
+            // Получение полного пути к изображению объекта (Если путь не задан - Picture.png).
             get
             {
                 if (!String.IsNullOrEmpty(ImagePath))
@@ -20,7 +20,7 @@ namespace DemoExam
                     return "/Picture.png";
                 }
             }
-            // Свойство для установки изображения продукта.
+            // Установка изображения объекта.
             set
             {
                 string filename = Path.Combine("Images", Path.GetFileName(value));
@@ -39,14 +39,23 @@ namespace DemoExam
 
         public string MaterialsString
         {
+            // Получение списка материалов строкой.
             get
             {
-                return String.Join(", ", ProductMaterial.Select(Entry => Entry.Name));
+                string materials = String.Empty;
+
+                if (ProductMaterial != null)
+                {
+                    materials = String.Join(", ", ProductMaterial.Select(Entry => Entry.Name));
+                }
+
+                return materials;
             }
         }
 
         public bool IsBigPrice
         {
+            // Используется для DataTrigger (Условное оформление).
             get
             {
                 if (Price >= 5000)

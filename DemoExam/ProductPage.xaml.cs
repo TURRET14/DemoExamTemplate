@@ -29,7 +29,7 @@ namespace DemoExam
             InitializeComponent();
         }
 
-        // Метод для загрузки данных при загрузке страницы и проверки прав доступа текущего пользователя.
+        // Загрузка данных при загрузке страницы. Проверка прав доступа текущего пользователя.
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             LoadFilterData();
@@ -56,7 +56,7 @@ namespace DemoExam
             }
         }
 
-        // Методы для загрузки данных из базы данных и отображения их в интерфейсе.
+        // Загрузка и отображение данных из базы данных.
         private void LoadMainData()
         {
             try
@@ -90,13 +90,13 @@ namespace DemoExam
             ComboBox_Filter.ItemsSource = FilterDataList;
         }
 
-        // Метод перехода на страницу редактирования для добавления нового объекта.
+        // Переход на страницу редактирования для добавления нового объекта.
         private void Button_Add_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new EditProductPage());
         }
 
-        // Метод для удаления выбранного объекта из базы данных с подтверждением действия.
+        // Удаление выбранного объекта из базы данных (С подтверждением).
         private void Button_Delete_Click(object sender, RoutedEventArgs e)
         {
             Products selected = ListBox_Main.SelectedItem as Products;
@@ -120,7 +120,7 @@ namespace DemoExam
                 }
             }
         }
-        // Методы для сортировки, фильтрации и поиска данных в интерфейсе.
+        
         private void ComboBox_Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SearchAndFilter();
@@ -136,7 +136,7 @@ namespace DemoExam
             SearchAndFilter();
         }
 
-        // Метод для применения сортировки, фильтрации и поиска к данным и обновления отображения в интерфейсе.
+        // Сортировка, фильтрация и поиск данных.
         private void SearchAndFilter()
         {
             List<Products> data = new List<Products>(MainDataList);
@@ -169,7 +169,7 @@ namespace DemoExam
             ListBox_Main.ItemsSource = data;
         }
 
-        // Метод для сброса сортировки, фильтрации и поиска и обновления отображения данных в интерфейсе.
+        // Сброс сортировки, фильтрации и поиска.
         private void Button_Filters_Clear_Click(object sender, RoutedEventArgs e)
         {
             ComboBox_Sort.SelectedItem = null;
@@ -184,7 +184,7 @@ namespace DemoExam
             // NavigationService.Navigate();
         }
 
-        // Метод для перехода на страницу редактирования для изменения существующего объекта при двойном клике на элементе списка.
+        // Переход на страницу редактирования (По Двойному Нажатию на объект).
         private void ListBox_Main_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Products selected = ListBox_Main.SelectedItem as Products;

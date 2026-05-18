@@ -9,15 +9,19 @@ namespace DemoExam
 {
     public static class MessageHelper
     {
-        // Класс для отображения сообщений пользователю. Содержит статические методы для отображения сообщений об ошибках, информации и подтверждения.
+        // Вывод Сообщения Об Ошибке.
         public static void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        // Вывод Сообщения Информации.
         public static void ShowInfoMessage(string message)
         {
             MessageBox.Show(message, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        // Вывод Сообщения Подтверждения.
         public static bool ShowConfirmationMessage(string message)
         {
             if (MessageBox.Show(message, "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)

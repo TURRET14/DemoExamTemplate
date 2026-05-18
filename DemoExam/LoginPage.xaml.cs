@@ -29,7 +29,7 @@ namespace DemoExam
             }
         }
 
-        // Обработчик события нажатия на кнопку "Войти".
+        // Вход в систему (С указанным логином и паролем).
         private void Button_Login_Click(object sender, RoutedEventArgs e)
         {
             string login = TextBox_Login.Text;
@@ -58,6 +58,7 @@ namespace DemoExam
             }
         }
 
+        // Переход к странице товаров (В режиме гостя).
         private void Button_Products_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ProductPage());

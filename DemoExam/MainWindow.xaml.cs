@@ -25,7 +25,7 @@ namespace DemoExam
             InitializeComponent();
         }
 
-        // Метод перехода на страницу авторизации и очистки текущего пользователя.
+        // Переход на Страницу Авторизации.
         private void Button_Login_Click(object sender, RoutedEventArgs e)
         {
             UserData.CurrentUser = null;
@@ -33,7 +33,7 @@ namespace DemoExam
             Frame_Main.NavigationService.Navigate(new LoginPage());
         }
 
-        // Метод для обработки нажатия кнопки "Назад" и возврата на предыдущую страницу, если это возможно.
+        // Возврат Назад.
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
             if (Frame_Main.NavigationService.CanGoBack)
@@ -42,7 +42,7 @@ namespace DemoExam
             }
         }
 
-        // Метод для обновления отображения информации о текущем пользователе при навигации на новую страницу.
+        // Обновление ФИО Текущего Пользователя (В верхнем правом углу).
         private void Frame_Main_Navigated(object sender, NavigationEventArgs e)
         {
             if (UserData.CurrentUser != null)

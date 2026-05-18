@@ -69,7 +69,7 @@
       <DependentUpon>ProductPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="TemplateClasses\DBEntities.cs" />
-    <Compile Include="TemplateClasses\DBInstanceHandler.cs" />
+    <Compile Include="DBInstanceHandler.cs" />
     <Compile Include="TemplateClasses\Materials.cs" />
     <Compile Include="TemplateClasses\Products.cs" />
     <Compile Include="TemplateClasses\Roles.cs" />

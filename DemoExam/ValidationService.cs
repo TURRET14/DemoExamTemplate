@@ -8,7 +8,7 @@ namespace DemoExam
 {
     public static class ValidationService
     {
-        // Класс для валидации данных. Содержит статические методы для проверки различных условий и отображения сообщений об ошибках.
+        // Проверка строки на пустоту.
         public static bool IsStringNotEmpty(string value, string title)
         {
             if (String.IsNullOrEmpty(value))
@@ -22,6 +22,7 @@ namespace DemoExam
             }
         }
 
+        // Проверка, является ли число положительным.
         public static bool IsNumberGreaterThanZero(double value, string title)
         {
             if (value <= 0)
@@ -35,6 +36,7 @@ namespace DemoExam
             }
         }
 
+        // Проверка, является ли число равным или больше нуля.
         public static bool IsNumberGreaterThanOrEqualToZero(double value, string title)
         {
             if (value < 0)
