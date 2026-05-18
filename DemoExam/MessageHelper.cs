@@ -9,19 +9,29 @@ namespace DemoExam
 {
     public static class MessageHelper
     {
-        // Вывод Сообщения Об Ошибке.
+        /// <summary>
+        /// Вывод Сообщения Об Ошибке.
+        /// </summary>
+        /// <param name="message">Текст сообщения</param>
         public static void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        // Вывод Сообщения Информации.
+        /// <summary>
+        /// Вывод Сообщения Информации.
+        /// </summary>
+        /// <param name="message">Текст сообщения</param>
         public static void ShowInfoMessage(string message)
         {
             MessageBox.Show(message, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        // Вывод Сообщения Подтверждения.
+        /// <summary>
+        /// Вывод Сообщения Подтверждения.
+        /// </summary>
+        /// <param name="message">Текст сообщения</param>
+        /// <returns>Результат Сообщения Подтверждения</returns>
         public static bool ShowConfirmationMessage(string message)
         {
             if (MessageBox.Show(message, "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
