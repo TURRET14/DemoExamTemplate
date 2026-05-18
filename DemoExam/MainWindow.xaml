@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DemoExam"
+    mc:Ignorable="d"
     Title="Магазин" Height="450" Width="800" MinHeight="450" MinWidth="800" Icon="/Восьмерка.ico">
     <Window.Resources>
         <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
@@ -32,11 +33,11 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Name="Button_Login" Click="Button_Login_Click">Войти / Сменить пользователя</Button>
-                <Button Grid.Row="1" Name="Button_Back" Click="Button_Back_Click">Назад</Button>
+                <Button Grid.Row="0" Name="Button_Login" ToolTip="Войти / Сменить пользователя" Click="Button_Login_Click">Войти / Сменить пользователя</Button>
+                <Button Grid.Row="1" Name="Button_Back" ToolTip="Назад" Click="Button_Back_Click">Назад</Button>
             </Grid>
 
-            <TextBlock Grid.Column="3" Name="TextBlock_FIO" HorizontalAlignment="Right" Text="Гость"></TextBlock>
+            <TextBlock Grid.Column="3" Name="TextBlock_FIO" HorizontalAlignment="Right" Text="Гость" ToolTip="ФИО"></TextBlock>
         </Grid>
         <Frame Name="Frame_Main" Grid.Row="1" NavigationUIVisibility="Hidden" Source="LoginPage.xaml" Navigated="Frame_Main_Navigated"></Frame>
     </Grid>

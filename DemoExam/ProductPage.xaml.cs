@@ -20,9 +20,9 @@ namespace DemoExam
     /// </summary>
     public partial class ProductPage : Page
     {
-        public Type FilterAllObject { get; set; } = new Type { Name = "Все" };
-        public List<Type> FilterDataList { get; set; }
-        public List<Product> MainDataList { get; set; }
+        public Types FilterAllObject { get; set; } = new Types { Name = "Все" };
+        public List<Types> FilterDataList { get; set; }
+        public List<Products> MainDataList { get; set; }
 
         public ProductPage()
         {
@@ -50,10 +50,9 @@ namespace DemoExam
             }
             else
             {
-                if (NavigationService.CanGoBack)
-                {
-                    NavigationService.GoBack();
-                }
+                Grid_Actions.Visibility = Visibility.Collapsed;
+                GroupBox_Filter.Visibility = Visibility.Collapsed;
+                Button_Orders.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -100,7 +99,7 @@ namespace DemoExam
         // Метод для удаления выбранного объекта из базы данных с подтверждением действия.
         private void Button_Delete_Click(object sender, RoutedEventArgs e)
         {
-            Product selected = ListBox_Main.SelectedItem as Product;
+            Products selected = ListBox_Main.SelectedItem as Products;
             if (!(selected is null))
             {
                 if (MessageHelper.ShowConfirmationMessage("Вы уверены, что хотите удалить товар?"))
@@ -117,6 +116,7 @@ namespace DemoExam
                     }
 
                     LoadMainData();
+                    SearchAndFilter();
                 }
             }
         }
@@ -139,44 +139,34 @@ namespace DemoExam
         // Метод для применения сортировки, фильтрации и поиска к данным и обновления отображения в интерфейсе.
         private void SearchAndFilter()
         {
-            List<Product> data;
-            try
-            {
-                data = DBEntities.GetInstance().Product.ToList();
-            }
-            catch
-            {
-                MessageHelper.ShowErrorMessage("Ошибка при получении данных из базы данных!");
-                return;
-            }
+            List<Products> data = new List<Products>(MainDataList);
 
             // Сортировка
             // По убыванию
             if (ComboBox_Sort.SelectedIndex == 0)
             {
-                data = data.OrderByDescending(entry => entry.Price).ToList();
+                data = data.OrderByDescending(Entry => Entry.Price).ToList();
             }
             // По возрастанию
             else if (ComboBox_Sort.SelectedIndex == 1)
             {
-                data = data.OrderBy(entry => entry.Price).ToList();
+                data = data.OrderBy(Entry => Entry.Price).ToList();
             }
 
             // Фильтрация
             if (ComboBox_Filter.SelectedItem != FilterAllObject && ComboBox_Filter.SelectedItem != null)
             {
-                data = data.Where(entry => entry.Type == ComboBox_Filter.SelectedItem).ToList();
+                data = data.Where(Entry => Entry.Type == ComboBox_Filter.SelectedItem).ToList();
             }
 
             // Поиск
             if (!String.IsNullOrEmpty(TextBox_Search.Text))
             {
-                data = data.Where(entry => entry.Name.Contains(TextBox_Search.Text)).ToList();
+                data = data.Where(Entry => Entry.Name.Contains(TextBox_Search.Text)).ToList();
             }
 
-            MainDataList = data;
             ListBox_Main.ItemsSource = null;
-            ListBox_Main.ItemsSource = MainDataList;
+            ListBox_Main.ItemsSource = data;
         }
 
         // Метод для сброса сортировки, фильтрации и поиска и обновления отображения данных в интерфейсе.
@@ -197,7 +187,7 @@ namespace DemoExam
         // Метод для перехода на страницу редактирования для изменения существующего объекта при двойном клике на элементе списка.
         private void ListBox_Main_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Product selected = ListBox_Main.SelectedItem as Product;
+            Products selected = ListBox_Main.SelectedItem as Products;
 
             if (selected != null)
             {

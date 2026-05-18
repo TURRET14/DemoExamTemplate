@@ -21,21 +21,21 @@ namespace DemoExam
     /// </summary>
     public partial class EditProductPage : Page
     {
-        public Product SelectedObject {  get; set; }
+        public Products SelectedObject {  get; set; }
         private bool IsNewObject { get; set; }
 
-        public List<Type> ComboBoxTypes { get; set; }
+        public List<Types> ComboBoxTypes { get; set; }
         
         // Конструктор добавления нового объекта.
         public EditProductPage()
         {
             InitializeComponent();
-            SelectedObject = new Product();
+            SelectedObject = new Products();
             IsNewObject = true;
         }
 
         // Конструктор для редактирования существующего объекта.
-        public EditProductPage(Product selected)
+        public EditProductPage(Products selected)
         {
             InitializeComponent();
             SelectedObject = selected;

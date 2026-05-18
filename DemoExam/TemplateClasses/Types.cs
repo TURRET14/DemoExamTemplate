@@ -1,6 +1,6 @@
 ﻿namespace DemoExam
 {
-    public class Type
+    public class Types
     {
         public string Name { get; set; }
     }

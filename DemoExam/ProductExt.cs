@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace DemoExam
 {
-    public partial class Product
+    public partial class Products
     {
         
         public string ImagePathGetSet {
@@ -12,7 +13,7 @@ namespace DemoExam
             {
                 if (!String.IsNullOrEmpty(ImagePath))
                 {
-                    return $"{Environment.CurrentDirectory}\\Images\\{ImagePath}";
+                    return Path.Combine(Environment.CurrentDirectory, ImagePath);
                 }
                 else
                 {
@@ -22,14 +23,25 @@ namespace DemoExam
             // Свойство для установки изображения продукта.
             set
             {
-                string filename = Path.GetFileName(value);
-                string newpath = $"{Environment.CurrentDirectory}\\Images\\{filename}";
-
+                string filename = Path.Combine("Images", Path.GetFileName(value));
+                string newpath = Path.Combine(Environment.CurrentDirectory, filename);
+                if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "Images")))
+                {
+                    Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "Images"));
+                }
                 if (!File.Exists(newpath))
                 {
                     File.Copy(value, newpath);
                 }
                 ImagePath = filename;
+            }
+        }
+
+        public string MaterialsString
+        {
+            get
+            {
+                return String.Join(", ", ProductMaterial.Select(Entry => Entry.Name));
             }
         }
 

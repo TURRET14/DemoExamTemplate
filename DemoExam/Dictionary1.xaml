@@ -10,6 +10,12 @@
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
     </Style>
 
+    <Style TargetType="ToolTip">
+        <Setter Property="FontFamily" Value="JetBrains Mono"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Padding" Value="5"></Setter>
+    </Style>
+
     <Style TargetType="TextBox">
         <Setter Property="FontFamily" Value="JetBrains Mono"></Setter>
         <Setter Property="FontSize" Value="15"></Setter>
@@ -31,7 +37,7 @@
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="Margin" Value="10"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
-        <Setter Property="Background" Value="Azure"></Setter>
+        <Setter Property="Background" Value="LightBlue"></Setter>
     </Style>
 
     <Style TargetType="ComboBox">
@@ -39,7 +45,7 @@
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="Margin" Value="10"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
-        <Setter Property="Background" Value="Azure"></Setter>
+        <Setter Property="Background" Value="LightBlue"></Setter>
     </Style>
 
     <Style TargetType="DataGrid">
@@ -53,7 +59,6 @@
     <Style TargetType="DataGridRow">
         <Setter Property="FontFamily" Value="JetBrains Mono"></Setter>
         <Setter Property="FontSize" Value="15"></Setter>
-        <Setter Property="Margin" Value="10"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
         <Setter Property="Background" Value="Azure"></Setter>
     </Style>

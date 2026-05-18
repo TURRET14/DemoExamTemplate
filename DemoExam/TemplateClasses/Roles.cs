@@ -1,6 +1,6 @@
 ﻿namespace DemoExam
 {
-    public class Role
+    public class Roles
     {
         public string Name { get; set; }
     }

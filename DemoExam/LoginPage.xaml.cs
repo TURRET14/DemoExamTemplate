@@ -44,7 +44,7 @@ namespace DemoExam
                 return;
             }
 
-            User user = DBEntities.GetInstance().User.FirstOrDefault(entry => entry.Login == login && entry.Password == password);
+            Users user = DBEntities.GetInstance().User.FirstOrDefault(Entry => Entry.Login == login && Entry.Password == password);
 
             if (user is null)
             {
@@ -56,6 +56,11 @@ namespace DemoExam
                 
                 NavigationService.Navigate(new ProductPage());
             }
+        }
+
+        private void Button_Products_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductPage());
         }
     }
 }

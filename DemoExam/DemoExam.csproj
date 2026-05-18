@@ -70,10 +70,11 @@
     </Compile>
     <Compile Include="TemplateClasses\DBEntities.cs" />
     <Compile Include="TemplateClasses\DBInstanceHandler.cs" />
-    <Compile Include="TemplateClasses\Product.cs" />
-    <Compile Include="TemplateClasses\Role.cs" />
-    <Compile Include="TemplateClasses\Type.cs" />
-    <Compile Include="TemplateClasses\User.cs" />
+    <Compile Include="TemplateClasses\Materials.cs" />
+    <Compile Include="TemplateClasses\Products.cs" />
+    <Compile Include="TemplateClasses\Roles.cs" />
+    <Compile Include="TemplateClasses\Types.cs" />
+    <Compile Include="TemplateClasses\Users.cs" />
     <Compile Include="UserData.cs" />
     <Compile Include="ValidationService.cs" />
     <Page Include="Dictionary1.xaml">

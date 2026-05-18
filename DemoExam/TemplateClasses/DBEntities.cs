@@ -5,17 +5,20 @@ namespace DemoExam
 {
     public partial class DBEntities
     {
-        private static Role AdminRole { get; set; } = new DemoExam.Role { Name = "Администратор" };
-        private static Role ManagerRole { get; set; } = new DemoExam.Role { Name = "Менеджер" };
-        private static Role UserRole { get; set; } = new DemoExam.Role { Name = "Пользователь" };
+        private static Roles AdminRole { get; set; } = new DemoExam.Roles { Name = "Администратор" };
+        private static Roles ManagerRole { get; set; } = new DemoExam.Roles { Name = "Менеджер" };
+        private static Roles UserRole { get; set; } = new DemoExam.Roles { Name = "Пользователь" };
 
-        private static Type TireType { get; set; } = new DemoExam.Type { Name = "Шина" };
-        private static Type DefaultType { get; set; } = new DemoExam.Type { Name = "По умолчанию" };
+        private static Types TireType { get; set; } = new DemoExam.Types { Name = "Шина" };
+        private static Types DefaultType { get; set; } = new DemoExam.Types { Name = "По умолчанию" };
 
-        public List<Role> Role { get; set; } = new List<Role>() { AdminRole, ManagerRole, UserRole };
-        public List<User> User { get; set; } = new List<User>() { new DemoExam.User() { FIO = "Емельяненко Семен Михайлович", Login = "EmelyanenkoSM", Password = "12345", Role = AdminRole } };
-        public List<Type> Type { get; set; } = new List<Type>() { TireType, DefaultType };
-        public List<Product> Product { get; set; } = new List<Product>() { new DemoExam.Product() { Name = "Шина Обычная", Type = TireType, Price = 15000}, new DemoExam.Product() { Name = "Покрышка Обычная", Type = DefaultType, Price = 3000 }, new DemoExam.Product() { Name = "Колесо", Type = TireType, Price = 7000 } };
+        private static Materials RubberMaterial { get; set; } = new DemoExam.Materials { Name = "Резина" };
+        private static Materials MetalMaterial { get; set; } = new DemoExam.Materials { Name = "Металл" };
+
+        public List<Roles> Role { get; set; } = new List<Roles>() { AdminRole, ManagerRole, UserRole };
+        public List<Users> User { get; set; } = new List<Users>() { new DemoExam.Users() { FIO = "Емельяненко Семен Михайлович", Login = "EmelyanenkoSM", Password = "12345", Role = AdminRole } };
+        public List<Types> Type { get; set; } = new List<Types>() { TireType, DefaultType };
+        public List<Products> Product { get; set; } = new List<Products>() { new DemoExam.Products() { Name = "Шина Обычная", Type = TireType, Price = 15000, ProductMaterial = new List<Materials> { RubberMaterial, MetalMaterial } }, new DemoExam.Products() { Name = "Покрышка Обычная", Type = DefaultType, Price = 3000, ProductMaterial = new List<Materials> { RubberMaterial } }, new DemoExam.Products() { Name = "Колесо", Type = TireType, Price = 7000, ProductMaterial = new List<Materials> { MetalMaterial } } };
 
         public void SaveChanges() { }
     }

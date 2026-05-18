@@ -1,10 +1,10 @@
 ﻿namespace DemoExam
 {
-    public class User
+    public class Users
     {
         public string FIO { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public Role Role { get; set; }
+        public Roles Role { get; set; }
     }
 }

@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:DemoExam"
+    mc:Ignorable="d"
     Title="Товары"
     Loaded="Page_Loaded">
     <Page.DataContext>
@@ -14,119 +15,125 @@
         <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
     </Page.Resources>
 
-    <ScrollViewer HorizontalAlignment="Center" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MinWidth="500">
-        <Grid>
+    <Grid MinWidth="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button Name="Button_Orders" Grid.Row="0" Click="Button_Orders_Click">Перейти к заказам</Button>
+
+        <TextBlock Grid.Row="1" FontSize="20" FontWeight="Bold" Text="Товары"></TextBlock>
+
+        <Grid Name="Grid_Actions" Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button Name="Button_Orders" Grid.Row="0" Click="Button_Orders_Click">Перейти к заказам</Button>
+            <Button Name="Button_Add" Grid.Row="0" Click="Button_Add_Click">Добавить товар</Button>
+            <Button Name="Button_Delete" Grid.Row="1" Click="Button_Delete_Click">Удалить товар</Button>
+        </Grid>
 
-            <TextBlock Grid.Row="1" FontSize="20" FontWeight="Bold" Text="Товары"></TextBlock>
 
-            <Grid Name="Grid_Actions" Grid.Row="2">
+        <GroupBox Name="GroupBox_Filter" Grid.Row="3" Header="Поиск, сортировка и фильтрация">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                <Button Name="Button_Add" Grid.Row="0" Click="Button_Add_Click">Добавить товар</Button>
-                <Button Name="Button_Delete" Grid.Row="1" Click="Button_Delete_Click">Удалить товар</Button>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Сортировка (По стоимости)"></TextBlock>
+                <ComboBox Name="ComboBox_Sort" Grid.Row="0" Grid.Column="1" SelectionChanged="ComboBox_Sort_SelectionChanged">
+                    <ComboBoxItem>По убыванию</ComboBoxItem>
+                    <ComboBoxItem>По возрастанию</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Фильтрация (По типу)"></TextBlock>
+                <ComboBox Name="ComboBox_Filter" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding FilterDataList}" DisplayMemberPath="Name" SelectionChanged="ComboBox_Filter_SelectionChanged"></ComboBox>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Поиск (По названию)"></TextBlock>
+                <TextBox Name="TextBox_Search" Grid.Row="2" Grid.Column="1" TextChanged="TextBox_Search_TextChanged"></TextBox>
+
+                <Button Name="Button_Filters_Clear" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Filters_Clear_Click">Сбросить фильтры</Button>
             </Grid>
+        </GroupBox>
 
+        <ListBox Name="ListBox_Main" Grid.Row="4" HorizontalContentAlignment="Stretch" ItemsSource="{Binding MainDataList}" d:ItemsSource="{d:SampleData}" MouseDoubleClick="ListBox_Main_MouseDoubleClick">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsBigPrice}" Value="True">
+                            <Setter Property="Grid.Background" Value="LightGreen"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DataTemplate.Resources>
+                        <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
+                    </DataTemplate.Resources>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
 
-            <GroupBox Name="GroupBox_Filter" Grid.Row="3" Header="Поиск, сортировка и фильтрация">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                        <Image Grid.Row="0" Grid.Column="0" Width="50" Source="{Binding ImagePathGetSet}"></Image>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Сортировка (По стоимости)"></TextBlock>
-                    <ComboBox Name="ComboBox_Sort" Grid.Row="0" Grid.Column="1" SelectionChanged="ComboBox_Sort_SelectionChanged">
-                        <ComboBoxItem>По убыванию</ComboBoxItem>
-                        <ComboBoxItem>По возрастанию</ComboBoxItem>
-                    </ComboBox>
-
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Фильтрация (По типу)"></TextBlock>
-                    <ComboBox Name="ComboBox_Filter" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding FilterDataList}" DisplayMemberPath="Name" SelectionChanged="ComboBox_Filter_SelectionChanged"></ComboBox>
-
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Поиск (По названию)"></TextBlock>
-                    <TextBox Name="TextBox_Search" Grid.Row="2" Grid.Column="1" TextChanged="TextBox_Search_TextChanged"></TextBox>
-
-                    <Button Name="Button_Filters_Clear" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Filters_Clear_Click">Сбросить фильтры</Button>
-                </Grid>
-            </GroupBox>
-
-            <ListBox Name="ListBox_Main" Grid.Row="4" ItemsSource="{Binding MainDataList}" MouseDoubleClick="ListBox_Main_MouseDoubleClick">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsBigPrice}" Value="True">
-                                <Setter Property="Grid.Background" Value="LightGreen"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <DataTemplate.Resources>
-                            <ResourceDictionary Source="/Dictionary1.xaml"></ResourceDictionary>
-                        </DataTemplate.Resources>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="1">
                             <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Image Grid.Row="0" Grid.Column="0" Width="50" Source="{Binding ImagePathGetSet}"></Image>
-
-                            <Grid Grid.Row="0" Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Grid.Row="0">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{} Название: {0}">
-                                            <Binding Path="Name"></Binding>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Grid.Row="1">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{} Цена: {0}">
-                                            <Binding Path="Price"></Binding>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Grid.Row="2">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{} Тип: {0}">
-                                            <Binding Path="Type.Name"></Binding>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Grid>
+                            <TextBlock Grid.Row="0">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{} Название: {0}">
+                                        <Binding Path="Name"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Grid.Row="1">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{} Цена: {0}">
+                                        <Binding Path="Price"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Grid.Row="2">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{} Тип: {0}">
+                                        <Binding Path="Type.Name"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Grid.Row="3">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{} Материалы: {0}">
+                                        <Binding Path="MaterialsString"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
-    </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
 </Page>

@@ -3,6 +3,6 @@
     public static class UserData
     {
         // Класс для хранения данных о текущем пользователе. Содержит статическое свойство CurrentUser, которое может быть установлено при входе пользователя в систему и использоваться для доступа к данным о пользователе в других частях приложения.
-        public static User CurrentUser { get; set; }
+        public static Users CurrentUser { get; set; }
     }
 }
