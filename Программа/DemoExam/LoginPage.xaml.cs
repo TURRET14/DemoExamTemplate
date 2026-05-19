@@ -44,7 +44,17 @@ namespace DemoExam
                 return;
             }
 
-            Users user = DBEntities.GetInstance().User.FirstOrDefault(Entry => Entry.Login == login && Entry.Password == password);
+            Users user = null;
+
+            try
+            {
+                user = DBEntities.GetInstance().User.FirstOrDefault(Entry => Entry.Login == login && Entry.Password == password);
+            }
+            catch
+            {
+                MessageHelper.ShowErrorMessage("Ошибка при получении данных из базы данных!");
+                return;
+            }
 
             if (user is null)
             {
